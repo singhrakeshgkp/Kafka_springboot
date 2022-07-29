@@ -15,4 +15,8 @@
          listeners=PLAINTEXT://localhost:9093,
          log.dirs=../broker2logs
    3. Now start the server(while starting the server specify the respective server.properties file)
+   
+ ### starting consumer console
+   use below command to start consumer console
+   kafka-console-consumer.bat --bootstrap-server localhost:9092(kafka-server host) --topic library-events(topic name)
          
