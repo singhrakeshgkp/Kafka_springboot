@@ -18,3 +18,15 @@
 Now run spring boot application topic should be created programmatically. to see the topic list use below command in windows
  kafka-topics.bat --list --zookeeper localhost:2181 (if u are using linux u can refer kafka-topics.sh file)
 	
+# Integration Testing
+### Embedded kafka
+ usefull in integration testing(while running ci/cd piline it won't connect to actual server it will connect to embedded kafka)
+ perform below steps to integrate embedded kafka with your test cases.
+ 1. specify below properties on top of your kafkatestcontroller class
+ 2. @EmbeddedKafka(topics = {"library-events"},partitions = 3)
+   @TestPropertySource(properties = {"spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}"
+   ,"spring.kafka.admin.properties.bootstrap-servers=${spring.embedded.kafka.brokers}" - 
+   This will overide bootstrap server and admin server prop given in  application.prop or yml file
+   ${spring.embedded.kafka.brokers}  - this one is taken from EmbeddedKfafkaBroker class file.
+   
+   
