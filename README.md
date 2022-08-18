@@ -30,3 +30,18 @@ Now run spring boot application topic should be created programmatically. to see
    ${spring.embedded.kafka.brokers}  - this one is taken from EmbeddedKfafkaBroker class file.
    
    
+# Kafka Consumer
+ ### Comitting offeset manually
+ 1. copy and paste following bean from KafkaAnnotationDrivenConfiguration to LibraryEventConsumerConfig.
+  @Bean
+	@ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
+	ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
+			ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+			ConsumerFactory<Object, Object> kafkaConsumerFactory) {
+		ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
+		configurer.configure(factory, kafkaConsumerFactory);
+		factory.getContainerProperties().setAckMode(AckMode.MANUAL);
+		return factory;
+	}
+2. Create a new consumer class "LibraryEventConsumerManualOffset" and implement AcknowledgingMessageListener interface 
+3. override OnMessage method and annotate it with @KafkaListener annotation
