@@ -18,7 +18,7 @@
 Now run spring boot application topic should be created programmatically. to see the topic list use below command in windows
  kafka-topics.bat --list --zookeeper localhost:2181 (if u are using linux u can refer kafka-topics.sh file)
 	
-# Integration Testing
+# Integration Testing Producer
 ### Embedded kafka
  usefull in integration testing(while running ci/cd piline it won't connect to actual server it will connect to embedded kafka)
  perform below steps to integrate embedded kafka with your test cases.
@@ -45,3 +45,19 @@ Now run spring boot application topic should be created programmatically. to see
 	}
 2. Create a new consumer class "LibraryEventConsumerManualOffset" and implement AcknowledgingMessageListener interface 
 3. override OnMessage method and annotate it with @KafkaListener annotation
+
+### Integration Testing consumer
+ 1. Create an integration test class and annotate the class with following annotation
+  @SpringBootTest
+  @EmbeddedKafka(topics = {"library-events"},partitions = 3)
+  @TestPropertySource(properties = {"spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
+		"spring.kafka.consumer.bootstrap-servers=${spring.embedded.kafka.brokers}"})
+ Note:- overriden the prop in application.yml file for testing
+ 2. Add following prop in application.yml
+    kafka:
+    template:
+      default-topic: library-events
+  producer:
+      bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
+      key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
