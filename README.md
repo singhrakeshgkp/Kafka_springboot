@@ -61,3 +61,5 @@ Now run spring boot application topic should be created programmatically. to see
       bootstrap-servers: localhost:9092, localhost:9093, localhost:9094
       key-serializer: org.apache.kafka.common.serialization.IntegerSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      
+ #How to write integration test using testcontainer?????
