@@ -63,3 +63,19 @@ Now run spring boot application topic should be created programmatically. to see
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       
  #How to write integration test using testcontainer?????
+ 
+ 
+### Consumer  customizing default error handling behavior 
+ 1. Go to LibraryEventConfig. and set factory.setCommonErrorHandler(instance)- instance of defaulterrorhandler
+
+### Consumer  Add a retry Listener to monitor each retry attempt
+1. setRetryListener in error handler in LibraryEventConfig file.
+
+### Consumer  Retry the specific exception
+1. specify the list of exception for which it should not go for retry.
+2. add below code.
+  errorHandler.addNotRetryableExceptions();
+ exceptionToIgnore.forEach(errorHandler::addNotRetryableExceptions);
+
+### Retry failled record with ExponentialBackOff
+### Recovery in kafka consumer
