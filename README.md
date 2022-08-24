@@ -79,3 +79,32 @@ Now run spring boot application topic should be created programmatically. to see
 
 ### Retry failled record with ExponentialBackOff
 ### Recovery in kafka consumer
+1. define below topics in application.yml file
+ topics: 
+  retry: 'iibrary-events-RETRY'
+  dlt: 'iibrary-events-DLT' 
+2. define below method in libraryEventConsumerConfig class
+     @Autowired
+	KafkaTemplate kafkaTemplate;
+
+	@Value(("${topics.retry}"))
+	private String retryTopic;
+	
+	@Value(("${topics.dlt}"))
+	private String retryDLT;
+	
+	public DeadLetterPublishingRecoverer publishRecoverer() {
+
+		DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(kafkaTemplate, (r, e) -> {
+			if (e instanceof RecoverableDataAccessException) {
+				return new TopicPartition(retryTopic, r.partition());
+			} else {
+				return new TopicPartition(retryDLT, r.partition());
+			}
+		});
+		return recoverer;
+	}
+	
+3. add recoverer in error handler
+   var errorHandler = new DefaultErrorHandler(publishRecoverer(),exponentialBackOff);
+4. Verify it using integration test ending with 333_libraryEvent
