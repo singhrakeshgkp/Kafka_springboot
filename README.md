@@ -108,3 +108,15 @@ Now run spring boot application topic should be created programmatically. to see
 3. add recoverer in error handler
    var errorHandler = new DefaultErrorHandler(publishRecoverer(),exponentialBackOff);
 4. Verify it using integration test ending with 333_libraryEvent
+
+### Consuming the messages published on the retry topic.
+1. Create new "LibraryEventRetryConsumer" class and specify the required annothation.
+### Testing retry consumer
+1. specify autoStartup = "{retryListener.startup:true}" prop in LibraryEventRetryListener.
+2. modify the LibraryEventConsumerIntegrationTest init method
+"retryListener.startup=false"
+var container =	registry.getListenerContainers().stream().filter(
+				(msgListenerContainer) -> msgListenerContainer.getGroupId().equalsIgnoreCase("msgListenerContainer"))
+				.collect(Collectors.toList()).get(0);
+	ContainerTestUtils.waitForAssignment(container, embeddedKafkaBroker.getPartitionsPerTopic());
+ 
