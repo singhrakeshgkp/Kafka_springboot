@@ -120,3 +120,21 @@ var container =	registry.getListenerContainers().stream().filter(
 				.collect(Collectors.toList()).get(0);
 	ContainerTestUtils.waitForAssignment(container, embeddedKafkaBroker.getPartitionsPerTopic());
  
+ ### Recovery save the failed messages in DB
+ 1. Define following consumer record recoverer in ConsumerConfig.java class
+   ConsumerRecordRecoverer  consumerRecordRecoverer = (consumerRecord,e) -> {
+		log.info("exception in consumer record recoverer {}",e.getMessage());
+		var record = (ConsumerRecord<Integer,String>) consumerRecord;
+		if (e.getCause() instanceof RecoverableDataAccessException) {
+			//recovery logic
+			log.info("Inside recovery");
+			failureRecordService.saveFailedRecord(record,e,RETRY);
+		} else {
+			//non recovery logic
+			log.info("inside non recovery");
+			failureRecordService.saveFailedRecord(record,e,DEAD);
+		}
+	};
+2. Add consumer record recoverer in default error handler(remove existing publishRecoverer())
+3. Create Entity calss, add attributes in the FailedRecord entity, create service and repo class as well.
+4. create test in integration consumer test calss
