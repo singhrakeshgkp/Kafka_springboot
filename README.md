@@ -138,3 +138,8 @@ var container =	registry.getListenerContainers().stream().filter(
 2. Add consumer record recoverer in default error handler(remove existing publishRecoverer())
 3. Create Entity calss, add attributes in the FailedRecord entity, create service and repo class as well.
 4. create test in integration consumer test calss
+
+### Recovery: Spring schedular to recover failed message
+1. Annotate SpringBootApplication class with @EnableScheduling annotation
+2. Create RetrySchedularClass and add required annotation.
+
