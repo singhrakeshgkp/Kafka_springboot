@@ -1,11 +1,47 @@
-# Local Setup 
- #### Windows
- 	1 Download apache kakfka from official website.
-	2 Add below properties in /config/server.properties file.
-	3 Navigate to /bin/windows directory and open command prompt.
-	4 Run below command to start zookeeper and kafka server
-		zookeeper-server-start.bat ..\..\config\zookeeper.properties
-		kafka-server-start.bat ..\..\config\server.properties
+# Kafka Setup 
+- Download apache kakfka from official website.
+ <details><summary>Windows</summary>
+ <p>
+ 
+ - Navigate to **bin/windows** directory.
+ 
+ ### Start Zookeeper and Kafka Broker
+  
+  - Start zookeeper using below command.
+  	```
+	zookeeper-server-start.bat ..\..\config\zookeeper.properties
+	```
+  - Follow below steps in order to start broker
+  
+   	- Add below properties in server.properties
+	
+	```
+	listeners=PLAINTEXT://:9092
+	auto.create.topics.enable=false
+	```
+	- Now run below command
+	
+	```
+	kafka-server-start.bat ..\..\config\server.properties
+	```
+  
+ </p>
+ </details>
+ 
+ 	
+	
+		
+# Kafka Terminology
+ 1. **Topic**  
+ 	a)Topic is an entity is kafka with a name.
+	b) It is created inside kafka broker.
+	c) Producer and consumer uses topic name to produce and consume the messages.
+	d) Even though consumer consumes the messages, it still resides in kafka broker as per the defined retention time.
+	e)
+2. **Partition**
+	a) Partition is where messages live inside topic.
+	b) Each topic can have one or more parititons.
+	c)
 		
 # Configure Kafka Template
   ### Mandatory Values
