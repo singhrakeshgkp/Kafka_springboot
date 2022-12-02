@@ -32,11 +32,25 @@
 	 kafka-topics.bat --bootstrap-server localhost:9092 --topic myfirsttopic --create --partitions 3 --replication-factor 1
 	 ```
   - Instantiate a console producer
-	   - Without key.
+	   - Without key
 	 ```
 	 kafka-console-producer.bat --broker-list localhost:9092 --topic myfirsttopic
 	 ```
 	 - With Key
+	 ```
+	 need todsffjkdfds
+	 ```
+- Instantiate a console consumer (--from-beginning is used to read the past messaged as well if we do not use it then it will read only future messages)
+	 - Without key
+	 ```
+	 kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic myfirsttopic --from-beginning
+	 ```
+	 - With key
+	 ```
+	 dsfds
+	 ```
+	 
+	 
 	 
  </p>
  </details>
