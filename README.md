@@ -19,12 +19,25 @@
 	listeners=PLAINTEXT://:9092
 	auto.create.topics.enable=false
 	```
-	- Now run below command
-	
+	- Now run below command.
 	```
 	kafka-server-start.bat ..\..\config\server.properties
 	```
-  
+### Create Topic, Produce and consume message using CLI
+	 
+  - Make sure zookeeper and kafka broker is up and running
+	 
+    - Use below command to create new topic this is applicable for kafka version>= 2.13 .
+	 ```
+	 kafka-topics.bat --bootstrap-server localhost:9092 --topic myfirsttopic --create --partitions 3 --replication-factor 1
+	 ```
+  - Instantiate a console producer
+	   - Without key.
+	 	```
+	 	kafka-console-producer.bat --broker-list localhost:9092 --topic myfirsttopic
+	 	```
+	 - With Key
+	 
  </p>
  </details>
  
