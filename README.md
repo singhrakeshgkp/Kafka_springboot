@@ -33,9 +33,9 @@
 	 ```
   - Instantiate a console producer
 	   - Without key.
-	 	```
-	 	kafka-console-producer.bat --broker-list localhost:9092 --topic myfirsttopic
-	 	```
+	 ```
+	 kafka-console-producer.bat --broker-list localhost:9092 --topic myfirsttopic
+	 ```
 	 - With Key
 	 
  </p>
