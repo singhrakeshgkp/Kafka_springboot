@@ -32,13 +32,14 @@
 	 kafka-topics.bat --bootstrap-server localhost:9092 --topic myfirsttopic --create --partitions 3 --replication-factor 1
 	 ```
   - Instantiate a console producer
+	   - If we do not pass key, the messages will be sent to different parition and you will not get the messages in order, if we want to maintian order we have to pass the key so that message get the same partiton.
 	   - Without key
 	 ```
 	 kafka-console-producer.bat --broker-list localhost:9092 --topic myfirsttopic
 	 ```
 	 - With Key
 	 ```
-	 need todsffjkdfds
+	kafka-console-producer.bat --broker-list localhost:9092 --topic myfirsttopic --property parse.key=true --property key.separator=,
 	 ```
 - Instantiate a console consumer (--from-beginning is used to read the past messaged as well if we do not use it then it will read only future messages)
 	 - Without key
@@ -47,7 +48,7 @@
 	 ```
 	 - With key
 	 ```
-	 dsfds
+	 kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic myfirsttopic --from-beginning  --property print.key=true --property key.separator=,
 	 ```
 	 
 	 
