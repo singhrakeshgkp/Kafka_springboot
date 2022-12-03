@@ -62,6 +62,11 @@
  ```
 kafka-topics.bat --bootstrap-server localhost:9092 --list
 ```
+- Describe topic, by default it describe all the topic, but if we specify topic name it will show details of specified topic only.
+```
+kafka-topics.bat --bootstrap-server localhost:9092 --describe
+kafka-topics.bat --bootstrap-server localhost:9092 --describe <topic-name>
+```
 - View Consumer group
 ```
 kafka-consumer-groups.bat --bootstrap-server localhost:9092 --list
