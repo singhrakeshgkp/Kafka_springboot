@@ -29,7 +29,7 @@
 	 
     - Use below command to create new topic this is applicable for kafka version>= 2.13 .
 	 ```
-	 kafka-topics.bat --bootstrap-server localhost:9092 --topic myfirsttopic --create --partitions 3 --replication-factor 1
+	 kafka-topics.bat --bootstrap-server localhost:9092 --topic myfirsttopic --create  --replication-factor 3 --partitions 4
 	 ```
   - Instantiate a console producer
 	   - If we do not pass key, the messages will be sent to different parition and you will not get the messages in order, if we want to maintian order we have to pass the key so that message get the same partiton.
@@ -49,15 +49,54 @@
 	 - With key
 	 ```
 	 kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic myfirsttopic --from-beginning  --property print.key=true --property key.separator=,
-	 ```
-	 
-	 
-	 
+	 ```	 	 
  </p>
  </details>
  
+ 
+ # Advanced Kafka CLI Operation
+ <details><summary>Windows</summary>
+<p>
+	 
+ - List down topics in a cluster
+ ```
+kafka-topics.bat --bootstrap-server localhost:9092 --list
+```
+- View Consumer group
+```
+kafka-consumer-groups.bat --bootstrap-server localhost:9092 --list
+```
+- Create Consumer in a specific group
+```
+kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic myfirsttopic --group <consumer group name>
+```
+- Analyzing commit logs
+```
+>kafka-run-class.bat kafka.tools.DumpLogSegments --deep-iteration --files /tmp/kafka-logs/myfirsttopic-0/00000000000000000000.log
+```
+	 
+</p>
+</details>
  	
-	
+# Setting up multiple kafka brokers
+ <details><summary>Windows</summary>
+<p>
+	 
+ - New server.properties file with new brokers details need to be created
+ ```
+broker.id=<unique broker id>
+listeners=PLIAINTEXT:localhost:<unique port>
+log.dirs = <log directory>
+auto.create.topics.enable = false<optional value>
+```
+- Use below command to create topic on all the brokers
+```
+kafka-topics.bat -bootstrap-server localhost:9092 localhost:9093 localhost:9094 -topic test-topic -create --replication-factor 3 --partitions 4
+```
+- Crea
+	 
+</p>
+</details>	
 		
 # Kafka Terminology
  1. **Topic**  
