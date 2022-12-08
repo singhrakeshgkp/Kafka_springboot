@@ -47,6 +47,38 @@
   
 </p>
 </details>
+
+<details><summary>Automated Test</summary>
+<p>
+  
+- Automated test Runs against your codebase
+- It runs as part of your build
+- Easy to capture bug and its requirment for todays software development
+- Here we will be using JUNIT tool for automated test.
+- Types of automated tests
+   - Unit test
+   - Integration Test
+   - End to End Test
+  
+</p>
+</details>
+
+<details><summary>Unit Test</summary>
+<p>
+<b>What is unit test?</b>
+  
+- Focuses on a single unit(method) and mock all other behaviour for example if we want to test controller method, we write unit test for that and other layer will     be mocked.
+- Mocks the external dependencies.
+  
+<b>why unit test?</b>  
+  
+- Faster compared to Integration test
+- It can cover the scenario what not possible with Integration test.
+- Mocks the external dependencies.
+  
+  
+</p>
+</details>
   
 
 
