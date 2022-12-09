@@ -13,7 +13,7 @@
   
 <details><summary>Common Kafka Producer Configuration</summary>
 <p>
-  
+  <b>The property can be found on google (kafka producer config) </b>
 - Acks
    - acks = 1 -> Gaurantees that messages is written to a leader, this is default configuration.
    - acks = all -> Gaurantees that messages is written to a leader and all replicas
