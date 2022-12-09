@@ -1,7 +1,9 @@
 package com.groceryprod.controller;
 
-import static org.mockito.Mockito.doNothing;
+import static org.mockito.ArgumentMatchers.isA;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.math.BigDecimal;
@@ -18,8 +20,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.groceryprod.event.GroceryEvent;
 import com.groceryprod.eventproducer.GroceryEventProducer;
 import com.groceryprod.model.Item;
-import static org.mockito.ArgumentMatchers.isA;
-import static org.mockito.Mockito.when;
 
 /*
  * 1. @WebMvcTest This annotation is required, if we are writing unit test for controller layer
@@ -42,7 +42,7 @@ public class GroceryControllerUnitTest {
 	public void produceGroceryEvent() throws Exception {
 		/* given */
 		Item item = Item.builder()
-					.itemId(null)
+					.itemId(43)
 					.itemName("unit test")
 					.itemPrice(new BigDecimal(434.00))
 					.build();
@@ -60,6 +60,30 @@ public class GroceryControllerUnitTest {
 		/* then */
 	}
 	
+	
+	@Test
+	public void postGroceryEvent_4XXX() throws Exception {
+		/* given */
+		Item item = Item.builder()
+					.itemId(null)
+					.itemName("unit test")
+					.itemPrice(new BigDecimal(434.00))
+					.build();
+		GroceryEvent groceryEvent = GroceryEvent.builder()
+									.eventId(null)
+									.item(item)
+									.build();
+		String json = objectMapper.writeValueAsString(groceryEvent);
+		/* when */
+		when(groceryEventProducer.produceGroceryEventSync(isA(GroceryEvent.class))).thenReturn(null);
+		String expectedErrorMsg = "item.itemId_must not be null";
+		mockMvc.perform(post("/v1.0/grocery/event")
+			   .content(json)
+			   .contentType(MediaType.APPLICATION_JSON))
+			   .andExpect(status().is4xxClientError())
+			   .andExpect(content().string(expectedErrorMsg));
+		
+	}
 	
 	
 }

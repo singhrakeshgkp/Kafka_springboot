@@ -2,6 +2,7 @@ package com.groceryprod.eventproducer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
@@ -58,16 +59,17 @@ public class GroceryEventProducer {
 		return sendResult;
 	}
 	
- /* Approach -3 Producing record on specific Topic, before this we 
+ /* Approach -3 and 4 -Producing record on specific Topic, before this we 
+  * the only different between approach 3 and 4 is that,in approach 3 we are using null header however in approach 4 it is not
   * were using default topic from appication.prop file */
 	
-	public void produceGroceryEventToSpecifiedTopic(GroceryEvent groceryEvent) throws JsonProcessingException {
+	public CompletableFuture<SendResult<Integer, String>>  produceGroceryEventToSpecifiedTopic(GroceryEvent groceryEvent) throws JsonProcessingException {
 		log.info("GroceryEventProducer.produceGroceryEventToSpecifiedTopic() start");
 	   Integer key = groceryEvent.getEventId();
 		String value = mapper.writeValueAsString(groceryEvent);
 	   ProducerRecord<Integer, String> producerRecord = getProducerRecord(TOPIC_NAME,key,value);
-	   kafkaTemplate.send(producerRecord)
-	    			.thenAccept((result)->{
+	  CompletableFuture<SendResult<Integer, String>> future= kafkaTemplate.send(producerRecord);
+	  future.thenAccept((result)->{
 	    				 log.info("Message produced on parition {}", result.getRecordMetadata().partition());
 	    				 for(int i = 0 ; i<=3; i++) {
 	    					 log.info("counting i {}",i);
@@ -89,7 +91,10 @@ public class GroceryEventProducer {
 	    				
 	    			});
 	   log.info("GroceryEventProducer.produceGroceryEventToSpecifiedTopic() end");
+	   return future;
 	}
+	
+	
 
 private ProducerRecord<Integer, String> getProducerRecord(String topicName, Integer key, String value) {
 	/*

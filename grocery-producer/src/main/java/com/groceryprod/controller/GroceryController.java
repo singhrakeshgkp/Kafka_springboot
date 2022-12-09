@@ -14,6 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.groceryprod.event.GroceryEvent;
 import com.groceryprod.eventproducer.GroceryEventProducer;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -24,7 +25,7 @@ public class GroceryController {
 	private GroceryEventProducer groceryEventProducer;
 	
 	@PostMapping("/v1.0/grocery/event")
-	public ResponseEntity<GroceryEvent> produceGroceryEvent(@RequestBody GroceryEvent groceryEvent) throws JsonProcessingException, InterruptedException, ExecutionException{
+	public ResponseEntity<GroceryEvent> produceGroceryEvent(@Valid @RequestBody GroceryEvent groceryEvent) throws JsonProcessingException, InterruptedException, ExecutionException{
 		log.info("GroceryController.produceGroceryEvent() start");
 		/*
 		 *1-

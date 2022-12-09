@@ -71,7 +71,7 @@ public class GroceryControllerIntegrationTest {
 	public void produceGroceryEvent() throws InterruptedException {
 
 		/* given */
-		Item item = Item.builder().itemId(null).itemName("integration test").itemPrice(new BigDecimal(55.454)).build();
+		Item item = Item.builder().itemId(4).itemName("integration test").itemPrice(new BigDecimal(55.454)).build();
 
 		GroceryEvent event = GroceryEvent.builder().eventId(null).item(item).build();
 		HttpHeaders headers = new HttpHeaders();
@@ -85,7 +85,7 @@ public class GroceryControllerIntegrationTest {
 	    Thread.sleep(5000);
 		ConsumerRecord<Integer, String> record = KafkaTestUtils.getSingleRecord(consumer, "grocery-event");
 	    String value = record.value();
-	    String expectedRecord = "{\"eventId\":null,\"item\":{\"itemId\":null,\"itemName\":\"integration test\",\"itemPrice\":55.45400000000000062527760746888816356658935546875}}";
+	    String expectedRecord = "{\"eventId\":null,\"item\":{\"itemId\":4,\"itemName\":\"integration test\",\"itemPrice\":55.45400000000000062527760746888816356658935546875}}";
 	    assertEquals(expectedRecord, value);
 	    log.info("actual record is : {}",value);
 	}
