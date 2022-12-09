@@ -5,5 +5,15 @@
      - H2 Database
      - Spring data jpa
      - Lombock
- - fdsf
- - fdsf
+ - Things required to configure kafka consumer
+   - MessageLitenerContainer  
+    - KafkaMessageLitenerContainer
+       - Polls the record
+       - commit the offsets
+       - single threaded
+    - ConcurrentMessageListenerContainer
+       - Represent multiple LaflaMessageListenerContainer
+  - @KafkaListener annotation
+    - It uses the concurrentmessageListenercontainer internally
+    - Simplest way to configure kafka consumer
+  
