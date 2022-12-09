@@ -29,6 +29,16 @@
 </p>
 </details>
 
+<details><summary>Overriding acks and retry configuration</summary>
+<p>
+  
+  
+- To override acks value use ``` spring.kafka.producer.properties.acks = 1 ``` configuration in application.prop file
+   
+- To override Retries value use ``` spring.kafka.producer.properties.retries = 10 ``` configuration in application.prop file
+</p>
+</details>
+
 # Testing
 <details><summary>Automated Test</summary>
 <p>
