@@ -10,6 +10,23 @@
 ### Approach -4 producing messages on the specified topic with header and producer record.
   - Consumer do not provide options to read and print the header passed in
   - For this we have to build consumer application, using this we can read and print the header.
+  
+<details><summary>Common Kafka Producer Configuration</summary>
+<p>
+  
+- Acks
+   - acks = 1 -> Gaurantees that messages is written to a leader, this is default configuration.
+   - acks = all -> Gaurantees that messages is written to a leader and all replicas
+   - acks=0 -> Not recommended, no gaurantee.
+- Retries
+   - Integer value ranges form 0-21474883647
+   - In spring kafka default value is 21474883647
+- retry.backoff.ms
+  - Integer value represented in miliscond
+  - Default value is 100 ms
+  
+</p>
+</details>
 
 # Testing
 <details><summary>Automated Test</summary>
@@ -48,20 +65,7 @@
 </p>
 </details>
 
-<details><summary>Automated Test</summary>
-<p>
-  
-- Automated test Runs against your codebase
-- It runs as part of your build
-- Easy to capture bug and its requirment for todays software development
-- Here we will be using JUNIT tool for automated test.
-- Types of automated tests
-   - Unit test
-   - Integration Test
-   - End to End Test
-  
-</p>
-</details>
+
 
 <details><summary>Unit Test</summary>
 <p>
