@@ -16,4 +16,22 @@
   - @KafkaListener annotation
     - It uses the concurrentmessageListenercontainer internally
     - Simplest way to configure kafka consumer
+  - Follow below stesps to configure consumer in kafka
+    - Create a new Class named GroceryEventConsumerConfig, annotate it with @Configuration and @EnableKafka annotations
+    - Create a new bean class as shown below<br/>
+      ```
+        @Component
+        @Slf4j
+        public class GroceryEventConsumer {
+
+        /*Here we are going to get the record in ConsumerRecord obj, while producing we passed producer record
+         *can pass multiple topic
+         * */
+        @KafkaListener(topics = {"grocery-event"})
+        public void onMessage(ConsumerRecord<Integer, String> consumerRecord) {
+          log.info("records is {}",consumerRecord);
+        }
+        }
+      ```
+         
   
