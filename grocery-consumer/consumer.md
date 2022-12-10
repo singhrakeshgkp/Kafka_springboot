@@ -16,7 +16,7 @@
   - @KafkaListener annotation
     - It uses the concurrentmessageListenercontainer internally
     - Simplest way to configure kafka consumer
-  - Follow below stesps to configure consumer in kafka
+  - <b>Follow below stesps to configure kafka consumer in your spring boot application </b>
     - Create a new Class named GroceryEventConsumerConfig, annotate it with @Configuration and @EnableKafka annotations
     - Create a new bean class as shown below<br/>
       ```
