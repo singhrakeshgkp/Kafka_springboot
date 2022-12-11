@@ -1,5 +1,8 @@
 # Creating consumer using spring boot
 
+<details><b><summary>Configuring Kafka Consumer and Reading Record from topic</b></summary>
+ <p>
+   
   - Create new spring boot application with following dependency.
      - Kafka for spring
      - H2 Database
@@ -49,5 +52,33 @@
    -  sdfsf
    -  fsdfsf
    -  fsdfsff
+ - <b>Concurrent Consumer</b> - Spin up multiple listener container.
+   - define below Bean in ```GroceryEventConsumerConfig.java``` file and set ```factory.setConcurrency(int value) ex. 2,3,4,...etc```
+     ```
+      @Bean
+      @ConditionalOnMissingBean(name = "kafkaListenerContainerFactory")
+      ConcurrentKafkaListenerContainerFactory<?, ?> kafkaListenerContainerFactory(
+          ConcurrentKafkaListenerContainerFactoryConfigurer configurer,
+          ObjectProvider<ConsumerFactory<Object, Object>> kafkaConsumerFactory) {
+        ConcurrentKafkaListenerContainerFactory<Object, Object> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        configurer.configure(factory, kafkaConsumerFactory
+            .getIfAvailable(() -> new DefaultKafkaConsumerFactory<>(properties.buildConsumerProperties())));
+
+        /*concurrency not recommended for application running on cloud*/
+        factory.setConcurrency(3);
+        return factory;
+      }
+     ```
+    - Now restart the server, you will observe in console pointing multiple listener running in different thread.
   
+</p>
+</details>
   
+<details><summary><b>Persisting data from kafka topic to database </b></summary>
+<p>
+
+- dkfj
+- kdsfj
+  
+</p> 
+</details>     
