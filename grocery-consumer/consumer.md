@@ -92,7 +92,6 @@
   ```
   - To access console from browser add spring boot web starter dependency in pom.xml file
   - Run your application and try to access localhost:/<port>/h2-console, in case of application context, append context name after port .
-- kdsfj
-  
+  - Create Repo and Service classes, call it from consumer onmessage method. 
 </p> 
 </details>     
