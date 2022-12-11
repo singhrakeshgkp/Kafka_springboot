@@ -77,7 +77,21 @@
 <details><summary><b>Persisting data from kafka topic to database </b></summary>
 <p>
 
-- dkfj
+- Configure h2 database
+  - use the below properties in your application.prop or yml file
+  ```
+  spring.datasource.url = jdbc:h2:mem:grocerydb
+ spring.sql.init.username = sa
+ spring.sql.init.password=
+ spring.datasource.driver-class-name = org.h2.Driver
+ spring.jpa.database = h2
+ spring.jpa.database-platform = org.hibernate.dialect.H2Dialect
+ spring.jpa.generate-ddl = true
+ spring.jpa.show-sql = true
+ spring.h2.console.enabled = true
+  ```
+  - To access console from browser add spring boot web starter dependency in pom.xml file
+  - Run your application and try to access localhost:/<port>/h2-console ``` in case of application context, append context name after port ```
 - kdsfj
   
 </p> 
