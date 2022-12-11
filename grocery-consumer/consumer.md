@@ -17,6 +17,14 @@
     - It uses the concurrentmessageListenercontainer internally
     - Simplest way to configure kafka consumer
   - <b>Follow below stesps to configure kafka consumer in your spring boot application </b>
+    - Specify below properties in application.prop file
+       ```
+      server.port=8081
+      spring.kafka.bootstrap-servers=localhost:9094, localhost:9093
+      spring.kafka.consumer.key-deserializer = org.apache.kafka.common.serialization.IntegerDeserializer
+      spring.kafka.consumer.value-deserializer = org.apache.kafka.common.serialization.StringDeserializer
+      spring.kafka.consumer.group-id = grocery-event-group
+       ```
     - Create a new Class named GroceryEventConsumerConfig, annotate it with @Configuration and @EnableKafka annotations
     - Create a new bean class as shown below<br/>
       ```
@@ -33,5 +41,13 @@
         }
         }
       ```
-         
+  - <b>Consumer Group, Rebalance</b>
+   - Consumer Group -> Running multiple instances of the same application with same group id
+   - Rebalance -> Changing partition ownership form one to another
+ - <b>Committing Offsets manually- Pending Not covered yet</b> for more details please check kafka ref doc.
+   -  kdsfk
+   -  sdfsf
+   -  fsdfsf
+   -  fsdfsff
+  
   
