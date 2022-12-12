@@ -69,7 +69,7 @@
         return factory;
       }
      ```
-    - Now restart the server, you will observe in console pointing multiple listener running in different thread.
+     - Now restart the server, you will observe in console pointing multiple listener running in different thread.
   
 </p>
 </details>
@@ -113,6 +113,8 @@
  
 </p>
 </details>
+  
+</details>
 <details><b><summary>Testing using real database (not in memory db such as H2)</b></summary>
  
 <p>
@@ -124,4 +126,33 @@
  
 </p>
 </details>
+  
+<details><b><summary>Error Handling, Retry and Recovery</b></summary>
+ 
+<p>
+ 
+- Custom Error Handler and custom retry in kafka consumer
+  - Go to GroceryEventConsumerConfig.java class
+  - Set commonerrorhandler
+  - create a new method, this method will retunr DefaultErrorHandler with backoff
+  ``` 
+  /*concurrency not recommended for application running on cloud*/
+		factory.setConcurrency(3);
+		factory.setCommonErrorHandler(null);
+  ```
+ ```
+  public DefaultErrorHandler getErrorHandler() {
+		var fixedBackOff = new FixedBackOff(1000L, 3);
+		return new DefaultErrorHandler(fixedBackOff);
+	}
+ ```
+ - The here new FixedBackoff(1000L,3)-> means it is going to make max 3 retry attempt after each one second
+ 
+ 
+ 
+</p>
+</details>
+
+
+
 
