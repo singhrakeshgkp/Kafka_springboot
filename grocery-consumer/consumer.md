@@ -94,4 +94,32 @@
   - Run your application and try to access localhost:/<port>/h2-console, in case of application context, append context name after port .
   - Create Repo and Service classes, call it from consumer onmessage method. 
 </p> 
-</details>     
+</details>   
+  
+<details><b><summary>Kafka Consumer Integration test</b></summary>
+ 
+<p>
+ 
+  - Define following properties in application.prop or yml file
+  ```
+  spring.kafka.producer.key-serializer = org.apache.kafka.common.serialization.IntegerSerializer
+  spring.kafka.producer.value-serializer = org.apache.kafka.common.serialization.StringSerializer
+  spring.kafka.template.default-topic=grocery-event
+  spring.kafka.producer.bootstrap-servers=localhost:9094, localhost:9093
+
+  ```
+  - Create Test class ``` ConsumerIntegTest.java  ``` and define all the required test method.
+ 
+ 
+</p>
+</details>
+<details><b><summary>Testing using real database (not in memory db such as H2)</b></summary>
+ 
+<p>
+ 
+- Pending comming soon
+ 
+ 
+</p>
+</details>
+
