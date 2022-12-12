@@ -134,7 +134,7 @@
 - Custom Error Handler and custom retry in kafka consumer
   - Go to GroceryEventConsumerConfig.java class
   - Set commonerrorhandler
-  - create a new method, this method will retunr DefaultErrorHandler with backoff
+  - create a new method, this method will retunr DefaultErrorHandler with backoff of max 3 retry, and 1 second interval
   ``` 
   /*concurrency not recommended for application running on cloud*/
 		factory.setConcurrency(3);
@@ -146,7 +146,6 @@
 		return new DefaultErrorHandler(fixedBackOff);
 	}
  ```
- - The here new FixedBackoff(1000L,3)-> means it is going to make max 3 retry attempt after each one second
  
  
  
