@@ -178,10 +178,34 @@
 - Recovery in kafka consumer
 	- <b>Approach 1 </b>
 	  - publish the failed message to retry topic
-	    - jkdsf
-	    - jfkdsf
+	    - Define following method in your consumer config class
+	    ```
+		 public DeadLetterPublishingRecoverer getRecoverer() {
+
+		DeadLetterPublishingRecoverer recoverer = new DeadLetterPublishingRecoverer(template,
+			(r, e) -> {
+			    if (e instanceof RecoverableDataAccessException ||  e.getCause() instanceof RecoverableDataAccessException) {
+				log.info("inside RecoverableDataAccessException publishing msg on retrytopic");
+				return new TopicPartition(retryTopicName, r.partition());
+			    }
+			    else {
+				return new TopicPartition(deadLetterTopicName, r.partition());
+			    }
+			});
+		return recoverer;
+		}
+	    ```
+	    - Define two topics retry and dlt in application.prop file. explicitly throw RecoverableDataAccessException from service layer and test it        		      using integration test
+	
+	    ```
+	    topics.retry=grocery-event.retry
+	    topics.dlt=grocery-event.dlt
+	    ```
 	    - jkdsf
 	  - save the failed message in db and retry with an schedular
+       - <b>Approach 2 </b>
+	 - Publish the failed record to dead later topic for tracking purposes
+	 - Save the failed record into db for tracking purposes
 </p>
 </details>
 
