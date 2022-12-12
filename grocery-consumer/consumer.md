@@ -161,9 +161,27 @@
 				 ,NullPointerException.class);
 		 exceptionsToIgnore.forEach(defaultErrorHandler :: addNotRetryableExceptions);
 	```
-	
-
- 
+- Retry Failed record with Exponential BackOff
+	- Use replace fixedbackoff with expbackoff as shown below
+	```
+	/* step 4. Retries with Exponential backoff*/ 
+		var expBackOff = new ExponentialBackOffWithMaxRetries(5);
+		expBackOff.setInitialInterval(1000L);
+		expBackOff.setMultiplier(2.0);
+		expBackOff.setMaxInterval(10000L);
+		var defaultErrorHandler = new
+	  DefaultErrorHandler(expBackOff);
+	  defaultErrorHandler.setRetryListeners((consumerRec, ex, attempt)->{ log.
+	  info("GroceryEventConsumerConfig.getErrorHandler() exception {}, delivery attempt {}"
+	  ,ex.getMessage(),attempt); });
+	```
+- Recovery in kafka consumer
+	- <b>Approach 1 </b>
+	  - publish the failed message to retry topic
+	    - jkdsf
+	    - jfkdsf
+	    - jkdsf
+	  - save the failed message in db and retry with an schedular
 </p>
 </details>
 
