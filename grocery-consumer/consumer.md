@@ -146,8 +146,23 @@
 		return new DefaultErrorHandler(fixedBackOff);
 	}
  ```
- 
- 
+- Add a RetryListener to monitor each retry attempt
+	
+	```
+	var defaultErrorHandler = new DefaultErrorHandler(fixedBackOff);
+		defaultErrorHandler.setRetryListeners((consumerRec, ex, attempt)->{
+			log.info("GroceryEventConsumerConfig.getErrorHandler() exception {}, delivery attempt {}",ex.getMessage(),attempt);
+		});
+	```
+- Retry specific exception by defining custom policy
+	- Declare a list of non retryable exception and add it to exception handler.
+	```
+	var exceptionsToIgnore = List.of(IllegalArgumentException.class
+				 ,NullPointerException.class);
+		 exceptionsToIgnore.forEach(defaultErrorHandler :: addNotRetryableExceptions);
+	```
+	
+
  
 </p>
 </details>
