@@ -201,7 +201,9 @@
 	    topics.retry=grocery-event.retry
 	    topics.dlt=grocery-event.dlt
 	    ```
-	    - jkdsf
+	    - Run the Integration test, consumer should be able to read the messages from retry topic
+	    - <b>Create Listener for retry topic to consume the messages.</b>
+	
 	  - save the failed message in db and retry with an schedular
        - <b>Approach 2 </b>
 	 - Publish the failed record to dead later topic for tracking purposes
