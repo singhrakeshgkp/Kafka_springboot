@@ -219,6 +219,9 @@
 	   - As part of retry we have alredy covered posting messages on dlt topic, if exception is not recoverable it will be published on dlt topic
 	   - Write the integration test for dlt topic.
 	 - Save the failed record into db for tracking purposes
+       - Create a scheduler
+	 - annotate your spring boot main class with ``` @EnableScheduling  ```  annotation
+	 - 
 </p>
 </details>
 
