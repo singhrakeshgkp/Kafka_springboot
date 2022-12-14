@@ -198,15 +198,26 @@
 	    - Define two topics retry and dlt in application.prop file. explicitly throw RecoverableDataAccessException from service layer and test it        		      using integration test
 	
 	    ```
-	    topics.retry=grocery-event.retry
-	    topics.dlt=grocery-event.dlt
+	    topics.retry=grocery-event-retry
+	    topics.dlt=grocery-event-dlt
 	    ```
 	    - Run the Integration test, consumer should be able to read the messages from retry topic
-	    - <b>Create Listener for retry topic to consume the messages.</b>
+	    - <b>Create Listener for retry topic to consume the messages (before running the application make sure you have retry topic created in broker).</b>
 	
 	  - save the failed message in db and retry with an schedular
+	    - comment out below method 
+	    ```
+		var defaultErrorHandler = new DefaultErrorHandler(
+				  getRecoverer(),this argument is not required
+				  fixedBackOff
+				  );
+	    ``
+	   - Create an intance of ConsumerRecordRecoverer
        - <b>Approach 2 </b>
 	 - Publish the failed record to dead later topic for tracking purposes
+	   - Create a grocery-event-dlt topic 
+	   - As part of retry we have alredy covered posting messages on dlt topic, if exception is not recoverable it will be published on dlt topic
+	   - Write the integration test for dlt topic.
 	 - Save the failed record into db for tracking purposes
 </p>
 </details>
