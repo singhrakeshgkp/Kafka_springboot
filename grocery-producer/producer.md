@@ -76,8 +76,6 @@
 </p>
 </details>
 
-
-
 <details><summary>Unit Test</summary>
 <p>
 <b>What is unit test?</b>
@@ -95,6 +93,8 @@
 </p>
 </details>
   
+# Error Handling and Security
+
 <details><summary>Error Handling </summary>
 <p>
   
@@ -112,3 +112,24 @@
   
 </p>
 </details>
+
+<details><summary>Security </summary>
+<p>
+  - Kafka support following types of security
+    - SSL(secured socket layer) also known as TLS (Transport layer security)
+    - SASL (Simple Authentication and Security Layer)
+</p>
+  
+<p>
+  
+  - Steps to setup SSL
+    - Generate keystore.jks
+    - SetupLocal Certificate Authority
+    - Create CSR(certificate signing request)
+    - Sign the SSL certificate
+    - Add the signed ssl certificate to keystore.jks file
+    - Configure the SSL certificate in kafka broker
+    - create truststore.jks for client 
+  
+</p>
+</details>  
