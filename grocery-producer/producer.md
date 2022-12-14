@@ -95,5 +95,20 @@
 </p>
 </details>
   
-
-
+<details><summary>Error Handling </summary>
+<p>
+  
+  - Possible Errors.
+    - kafka cluster is not available
+    - if acks = all and some broker is not available
+    - min.insync.replicas config(if min.insync.replicas config = 2 and only one broker is available)
+  - Solution
+     - 1
+        - Store the failed record in db
+        - Process/produce them with the help of scheduler in a fix interval
+    - 2 
+       - Introduce a new topic ``` retry topic ``` and produce the msg on that topic
+       - Crete a new consumer and with help of this consumer produce it on main(desired) topic
+  
+</p>
+</details>
