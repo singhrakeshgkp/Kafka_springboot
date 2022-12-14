@@ -221,7 +221,7 @@
 	 - Save the failed record into db for tracking purposes
        - Create a scheduler
 	 - annotate your spring boot main class with ``` @EnableScheduling  ```  annotation
-	 - 
+	 - Create a new class ``` RetriveAndProcessFailedRecJob.java ``` class and write down the logic to process the failed and recoverable records
 </p>
 </details>
 
