@@ -30,6 +30,12 @@
       - sdf
    -  
   ### Sign the SSL certificate
+   - use below command to sign the test-cert file
+   ```
+   openssl x509 -req -CA ca-cert -CAkey ca-key -in <cert file name test-cert> -out <output file name test-cert-signed> -days <180> -CAcreateserial -passin pass:<pwd    provided while generating file>
+   ```
+   - one more file wit the given file name will be generated, in my case it is test-cert-signed
+   - To see the content in the generated signed file use command    ``` keytool -printcert -v -file <signed file name> ```
   ### Add the signed ssl certificate to keystore.jks file
   ### Configure the SSL certificate in kafka broker
   ### create truststore.jks for client
