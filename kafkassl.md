@@ -37,22 +37,25 @@
    - one more file wit the given file name will be generated, in my case it is test-cert-signed
    - To see the content in the generated signed file use command    ``` keytool -printcert -v -file <signed file name> ```
   ### Add the signed ssl certificate to keystore.jks file
+   - Use below two command to add ca-cert and signed cert to generated keystore.jks file
+   ```
+   keytool -keystore testserver.keystore.jks -alias CARoot -import -file ca-cert
+   keytool -keystore testserver.keystore.jks -alias localhost -import -file test-cert-signed
+   ```
+   -   
   ### Configure the SSL certificate in kafka broker
-  ### create truststore.jks for client
+   - Configure Below properties in kafka server.properties file
+   ```
+   listeners=PLAINTEXT://:9092, ssl://localhost:9192
+   ssl.keystore.location=<jks file path>/server.keystore.jks
+   ssl.keystore.password=pwd
+   ssl.key.password=pwd
+   ssl.endpoint.identification.algorithm=
+   ```
+  ### create client truststore.jks for client
   
-  - df
-  - sdfsd
-  - dsfdsf
-  - fsdf
-  - sfds
-  - fds
-  - fds
-  - f
-
-- Steps to setup SSL
-    \
-    - 
-    - Sign the SSL certificate
-    - Add the signed ssl certificate to keystore.jks file
-    - Configure the SSL certificate in kafka broker
-    - create truststore.jks for client 
+  - Use below command to crete truststore.jks file for client.
+  ```
+  keytool -keystore client.truststore.jks -alias CARoot -import -file ca-cert
+  ```
+  
