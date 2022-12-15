@@ -111,3 +111,6 @@ kafka-topics.bat -bootstrap-server localhost:9092 localhost:9093 localhost:9094 
   
 # Configuring SSL.
   (for more details click  [here](https://github.com/singhrakeshgkp/Kafka_springboot/blob/main/kafkassl.md)).
+	
+# Create and access secured topics.
+
