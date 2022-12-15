@@ -25,10 +25,7 @@
       
       ```
       - One additional file will be generated with test-cert name
-      - dsf
-      - fdsf
-      - sdf
-   -  
+    
   ### Sign the SSL certificate
    - use below command to sign the test-cert file
    ```
