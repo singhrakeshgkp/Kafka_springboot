@@ -15,4 +15,20 @@ public class GroceryConfig {
 					.replicas(2)
 					.build();
 	}
+	
+	@Bean
+	public NewTopic groceryEventRetry() {
+		return TopicBuilder.name("grocery-event-retry")
+					.partitions(2)
+					.replicas(2)
+					.build();
+	}
+	
+	@Bean
+	public NewTopic groceryEventDLT() {
+		return TopicBuilder.name("grocery-event-dlt")
+					.partitions(2)
+					.replicas(2)
+					.build();
+	}
 }

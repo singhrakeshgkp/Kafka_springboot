@@ -41,7 +41,7 @@ import lombok.extern.slf4j.Slf4j;
  * from @link{EmbeddedKafkaBroker.class} file
  */
 
-@TestPropertySource(properties = { "spring.kafka.bootstrap-servers=${spring.embedded.kafka.brokers}",
+@TestPropertySource(properties = { "spring.kafka.producer.bootstrap-servers=${spring.embedded.kafka.brokers}",
 		"spring.kafka.admin.properties.bootstrap.servers=${spring.embedded.kafka.brokers}" })
 public class GroceryControllerIntegrationTest {
 

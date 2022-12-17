@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Item {
 	
-	@NotNull
+	//@NotNull
 	private Integer itemId;
 	
 	@NotBlank

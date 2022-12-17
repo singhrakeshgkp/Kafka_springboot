@@ -16,6 +16,10 @@ public class GroceryEvent {
 
 	private Integer eventId;
 	
-	@Valid
+	private Action action;
+	
+	//@Valid
 	private Item item;
 }
+
+
