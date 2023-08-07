@@ -1,10 +1,9 @@
 package com.groceryprod.eventproducer;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
+import java.util.stream.Stream;
 
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.header.Header;
@@ -66,47 +65,58 @@ public class GroceryEventProducer {
 	public CompletableFuture<SendResult<Integer, String>>  produceGroceryEventToSpecifiedTopic(GroceryEvent groceryEvent) throws JsonProcessingException {
 		log.info("GroceryEventProducer.produceGroceryEventToSpecifiedTopic() start");
 	   Integer key = groceryEvent.getEventId();
-		String value = mapper.writeValueAsString(groceryEvent);
+	   String value = mapper.writeValueAsString(groceryEvent);
 	   ProducerRecord<Integer, String> producerRecord = getProducerRecord(TOPIC_NAME,key,value);
-	  CompletableFuture<SendResult<Integer, String>> future= kafkaTemplate.send(producerRecord);
-	  future.thenAccept((result)->{
-	    				 log.info("Message produced on parition {}", result.getRecordMetadata().partition());
-	    				 for(int i = 0 ; i<=3; i++) {
-	    					 log.info("counting i {}",i);
-	    					 try {
-								TimeUnit.SECONDS.sleep(1);
-							} catch (InterruptedException e1) {
-								 log.info("counting i {}",e1);
-								e1.printStackTrace();
-							}
-	    				 }
-	    			})
-	    			.exceptionally(e->{
-	    				log.info("Exception Occurred {}",e.getMessage());
-	    				return null;
-	    			}
-	    					)
-	    			.thenRun(()->{
-	    				log.info("Method executed successfulluy{}");
-	    				
-	    			});
+	   CompletableFuture<SendResult<Integer, String>> future= kafkaTemplate.send(producerRecord);
+	   
+	   future.whenComplete((result,ex)->{
+		   if(ex == null) {
+			   handleSuccess(result);
+		   }else {
+			   handleFailureError(ex);
+		   }
+		});
+	   	
 	   log.info("GroceryEventProducer.produceGroceryEventToSpecifiedTopic() end");
 	   return future;
 	}
 	
 	
 
-private ProducerRecord<Integer, String> getProducerRecord(String topicName, Integer key, String value) {
-	/*
-	 * approach -4 start
-	 */
-	List<Header> headers = List.of(new RecordHeader("event-source", "scanner".getBytes()));
-	
-	/*
-	 * approach -4 end
-	 */
-	
-	return new ProducerRecord<Integer, String>(topicName, null,key, value, headers);
-}
-  
+	private ProducerRecord<Integer, String> getProducerRecord(String topicName, Integer key, String value) {
+		/*
+		 * approach -4 start
+		 */
+		List<Header> headers = List.of(new RecordHeader("event-source", "scanner".getBytes()));
+
+		/*
+		 * approach -4 end
+		 */
+
+		return new ProducerRecord<Integer, String>(topicName, null, key, value, headers);
+	}
+
+	public static void handleSuccess(SendResult<Integer, String> sendResult) {
+
+		 log.info("Message produced on parition {}", sendResult.getRecordMetadata().partition());
+		 Stream.iterate(0, n->n+1)
+		 	   .limit(3)
+		 	   .forEach(n->{
+		 		   log.info("counting i {}",n);
+		 		   sleep(1000);
+		 	   });
+	   
+		
+	}
+	public static void handleFailureError(Throwable ex) {
+		log.error("error occurred while producing record {}",ex.getMessage());
+	}
+	public static void sleep(long ms) {
+		try {
+			Thread.sleep(ms);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+
 }

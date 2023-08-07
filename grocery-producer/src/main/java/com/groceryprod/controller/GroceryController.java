@@ -1,5 +1,6 @@
 package com.groceryprod.controller;
 
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,8 @@ public class GroceryController {
 		  //log.info("produced event is {}",result.getProducerRecord());
 		 
 		/*3-*/
-		/* groceryEventProducer.produceGroceryEventToSpecifiedTopic(groceryEvent); */
+		//CompletableFuture<SendResult<Integer, String>> result=	groceryEventProducer.produceGroceryEventToSpecifiedTopic(groceryEvent); 
+		//log.info("status "+ result.isDone());
 	 log.info("GroceryController.produceGroceryEvent() End");
 		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
