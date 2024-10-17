@@ -1,5 +1,7 @@
 # Kafka Setup 
 - Download apache kakfka from official website.
+- references
+  - https://www.youtube.com/watch?v=s6-uDxDKH1k&list=PLa7VYi0yPIH14oEOfwbcE9_gM5lOZ4ICN&index=3
  <details><summary>Windows</summary>
  <p>
  
