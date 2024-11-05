@@ -51,7 +51,13 @@
    Partition 4->----5%----
 
  ```
-
+- **why unbalancing happens? and how we can prevent this issue**
+   - First reason is selection of key, if proper key is not selected data would be distributed unevenly across the partition.
+   - Data is not evenly produced over time(peak hours and inactivity)
+   - If your Broker1 is slow, and lets assume we are sending batch to broker 1, since broker is slow so it might take time to send ack to producer in between that time producer might accumulate more data and send it to broker1. that way we would end up with hot partition, which will make broker 1 even more slow.
+- **Solving unbalanced partition issue(sticky partitioner)**
+   - partitioner.adaptive.partitioning.enabled=true(producer will adapt the performance of broker and send more record to broker which is faster)
+   - partitioner.availability.timeout.ms>0
 ## Changing Partition Later
 - Its not possible to decrease number of partition in existing topic.
 - However we can add additional partition to topic. But again that depends.
