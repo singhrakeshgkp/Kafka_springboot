@@ -23,6 +23,7 @@
 ## Partitioning in apache kafka
 - [Diagram](/partition.png)
 <img src="/partition.png" width="500"/>
+
 - Partitioning is a mechanism to distribute topic data across multiple brokers.
 - Or we can say Partitioning is a way to parallelise production and consumption of messages.
 - **how many partition one should create?**
