@@ -15,10 +15,16 @@
 - **Consumer**--> An application that reads data from kafka.
 - **Broker**--> is a kafka server.
 - **Cluster**--> A group of brokers/computer sharing workloads for a common purpose.
-- **Topic**--> Topic is a unique name for kafka stream, its an abstract term because on the disks it stored data in partitions.
+- **Topic**--> Topic is a unique name for kafka stream, its an abstract term, because on the disks it stores data in partitions.
 - **Partition**-->
 - **Offset**-->
 - **Consumer Group**-->
 - 
 ## Partitioning in apache kafka
-- producer pushes/send the data to topic, topic is a abstract term because on the disks it stored data in partitions. Pari
+- Partitioning is a mechanism to distribute topic data across multiple brokers.
+- Or we can say Partitioning is a way to parallelise production and consumption of messages.
+
+  ## Performance
+  - **Throughput**--> Number of messages that goes through the system in a given amount of time.
+  - **Latency**--> Overall time it takes to process each message.
+  - **Lag**--> The delta between the last produced message and last consumer's committed message.
