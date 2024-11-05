@@ -27,7 +27,7 @@
 - Partitioning is a mechanism to distribute topic data across multiple brokers.
 - Or we can say Partitioning is a way to parallelise production and consumption of messages.
 - **how many partition one should create?**
-   - We can decide with target/consumer reach capacity.
+   - We can decide with target/consumer read capacity.
      ```if target read capacity = 2GiB/sec
         consumer throughput = 200MiB/sec
         then number of consumers required would be 2000/200 = 10 consumer. therefore number of partition needed here is 10.
