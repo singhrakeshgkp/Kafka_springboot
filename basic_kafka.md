@@ -1,6 +1,8 @@
 - [introduction](#introduction)
 - [Kafka Terminology](#kafka-terminology)
 - [Partitioning in apache kafka](#partitioning-in-apache-kafka)
+   -[How Partitioning happens](#how-partitioning-happens)
+- [Changing Partition Later](#changing-partition-later)
 - [jkf](#kdfjd)
 
 ## Introduction
@@ -32,8 +34,15 @@
         consumer throughput = 200MiB/sec
         then number of consumers required would be 2000/200 = 10 consumer. therefore number of partition needed here is 10.
      ```
-
-  ## Performance
-  - **Throughput**--> Number of messages that goes through the system in a given amount of time.
-  - **Latency**--> Overall time it takes to process each message.
-  - **Lag**--> The delta between the last produced message and last consumer's committed message.
+### How partitioning happens
+- **Default partitioner** ---> default partiner uses 3 way to partition data.
+  1. Explicitly specifying partition--> Not recommended
+  2. Using key or hash based partitioner--> Maintains production and consumption of message at partition level, if you change the number of partion later ordering might be impacted. If u don't care about ordering we are good to add additional partition.
+  3.  round robin/sticky partitioner--> Send a batch for every partition. It selects a partition and continue assigning record to a batch until one of two condition happens, either we reach the max number of batch size or the time we allocated for that operation elasped.
+## Changing Partition Later
+- Its not possible to decrease number of partition in existing topic.
+- However we can add additional partition to topic. But again that depends.
+## Performance
+- **Throughput**--> Number of messages that goes through the system in a given amount of time.
+- **Latency**--> Overall time it takes to process each message.
+- **Lag**--> The delta between the last produced message and last consumer's committed message.
