@@ -21,8 +21,16 @@
 - **Consumer Group**-->
 - 
 ## Partitioning in apache kafka
+- [Diagram](/partition.png)
+<img src="/partition.png" width="800"/>
 - Partitioning is a mechanism to distribute topic data across multiple brokers.
 - Or we can say Partitioning is a way to parallelise production and consumption of messages.
+- **how many partition one should create?**
+   - We can decide with target/consumer reach capacity.
+     ```if target read capacity = 2GiB/sec
+        consumer throughput = 200MiB/sec
+        then number of consumers required would be 2000/200 = 10 consumer. therefore number of partition needed here is 10.
+     ```
 
   ## Performance
   - **Throughput**--> Number of messages that goes through the system in a given amount of time.
